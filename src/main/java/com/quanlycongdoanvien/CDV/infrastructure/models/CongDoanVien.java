@@ -63,19 +63,19 @@ public class CongDoanVien extends BaseEntity {
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<PhiThuCDV> phiThuCDVList;
 
-    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<BacLuong> bacLuongList;
 
-    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<ThamNien> thamNienList;
 
-    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<HocHam> hocHamList;
 
-    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<HocVi> hocViList;
 
-    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<ChucVu> chucVuList;
 
     @OneToOne(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
