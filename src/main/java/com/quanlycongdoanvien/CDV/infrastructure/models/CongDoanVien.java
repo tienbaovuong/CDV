@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
@@ -59,4 +60,22 @@ public class CongDoanVien extends BaseEntity{
 
     @OneToMany(mappedBy = "congDoanVien")
     private List<PhiThuCDV> phiThuCDVList;
+
+    @OneToMany(mappedBy = "congDoanVien")
+    private List<BacLuong> bacLuongList;
+
+    @OneToMany(mappedBy = "congDoanVien")
+    private List<ThamNien> thamNienList;
+
+    @OneToMany(mappedBy = "congDoanVien")
+    private List<HocHam> hocHamList;
+
+    @OneToMany(mappedBy = "congDoanVien")
+    private List<HocVi> hocViList;
+
+    @OneToMany(mappedBy = "congDoanVien")
+    private List<ChucVu> chucVuList;
+
+    @OneToOne(mappedBy = "congDoanVien")
+    private TaiKhoan taiKhoan;
 }
