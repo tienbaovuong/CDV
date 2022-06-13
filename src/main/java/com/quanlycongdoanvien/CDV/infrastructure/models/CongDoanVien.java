@@ -6,8 +6,10 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -25,7 +27,7 @@ import java.util.List;
         name = "SEQ_GEN",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_CDV")})
-public class CongDoanVien extends BaseEntity{
+public class CongDoanVien extends BaseEntity {
 
     @Column(name = "So_hieu")
     private String soHieu;
@@ -58,24 +60,24 @@ public class CongDoanVien extends BaseEntity{
     @JoinColumn(name = "ID_Khoa")
     private Khoa khoa;
 
-    @OneToMany(mappedBy = "congDoanVien")
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<PhiThuCDV> phiThuCDVList;
 
-    @OneToMany(mappedBy = "congDoanVien")
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<BacLuong> bacLuongList;
 
-    @OneToMany(mappedBy = "congDoanVien")
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ThamNien> thamNienList;
 
-    @OneToMany(mappedBy = "congDoanVien")
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<HocHam> hocHamList;
 
-    @OneToMany(mappedBy = "congDoanVien")
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<HocVi> hocViList;
 
-    @OneToMany(mappedBy = "congDoanVien")
+    @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ChucVu> chucVuList;
 
-    @OneToOne(mappedBy = "congDoanVien")
+    @OneToOne(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private TaiKhoan taiKhoan;
 }

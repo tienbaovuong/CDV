@@ -21,7 +21,7 @@ import javax.persistence.Table;
         name = "SEQ_GEN",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_PHI_THU_VIEN")})
-public class PhiThuVien extends PhiThu{
+public class PhiThuVien extends PhiThu {
     @ManyToOne
     @JoinColumn(name = "ID_Vien")
     private Vien vien;

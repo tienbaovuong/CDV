@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
         name = "SEQ_GEN",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_HOC_HAM")})
-public class HocHam extends BaseEntity{
+public class HocHam extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "ID_CDV")
     private CongDoanVien congDoanVien;

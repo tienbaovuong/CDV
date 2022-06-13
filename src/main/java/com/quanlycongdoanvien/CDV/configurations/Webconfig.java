@@ -7,7 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class Webconfig {
-    public final static String crossOrigin="https://quanlycongdoanvien.herokuapp.com";
+    public final static String crossOrigin = "https://quanlycongdoanvien.herokuapp.com";
+
     @Bean
     public WebMvcConfigurer CORSConfigurer() {
         return new WebMvcConfigurer() {

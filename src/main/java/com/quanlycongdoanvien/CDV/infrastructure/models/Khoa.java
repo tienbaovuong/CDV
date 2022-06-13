@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,7 +24,7 @@ import java.util.List;
         name = "SEQ_GEN",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_KHOA")})
-public class Khoa extends BaseEntity{
+public class Khoa extends BaseEntity {
     @OneToMany(mappedBy = "khoa")
     private List<CongDoanVien> danhSachCDV;
 
@@ -40,6 +41,6 @@ public class Khoa extends BaseEntity{
     @Column(name = "Tai_khoan")
     private String taiKhoan;
 
-    @OneToMany(mappedBy = "khoa")
+    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
     private List<PhiThuKhoa> phiThuKhoaList;
 }
