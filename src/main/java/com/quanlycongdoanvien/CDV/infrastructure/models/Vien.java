@@ -2,6 +2,7 @@ package com.quanlycongdoanvien.CDV.infrastructure.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@DynamicUpdate
 @Table(name = "VIEN")
 @AttributeOverride(name = "id", column = @Column(name = "ID_Vien", insertable = false, updatable = false))
 @GenericGenerator(

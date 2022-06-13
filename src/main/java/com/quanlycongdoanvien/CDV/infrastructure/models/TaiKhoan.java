@@ -2,6 +2,7 @@ package com.quanlycongdoanvien.CDV.infrastructure.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
+@DynamicUpdate
 @Table(name = "TAI_KHOAN")
 @AttributeOverride(name = "id", column = @Column(name = "ID_TAI_KHOAN", insertable = false, updatable = false))
 @GenericGenerator(
@@ -33,11 +35,11 @@ public class TaiKhoan extends BaseEntity {
     private String password;
 
     @Column(name = "La_quan_ly_khoa")
-    private boolean isQuanLyKhoa;
+    private boolean isQuanLyKhoa = false;
 
     @Column(name = "La_quan_ly_vien")
-    private boolean isQuanLyVien;
+    private boolean isQuanLyVien = false;
 
     @Column(name = "La_quan_ly_truong")
-    private boolean isQuanLyTruong;
+    private boolean isQuanLyTruong = false;
 }

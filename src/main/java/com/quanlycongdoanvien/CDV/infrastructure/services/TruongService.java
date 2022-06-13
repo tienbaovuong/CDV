@@ -13,6 +13,10 @@ public class TruongService {
     ITruongRepository iTruongRepository;
     IPhiThuTruongRepository iPhiThuTruongRepository;
 
+    public Truong findTruong(){
+        return iTruongRepository.findAll().get(0);
+    }
+
     public Truong insertOrUpdate(Truong truong) {
         return iTruongRepository.save(truong);
     }

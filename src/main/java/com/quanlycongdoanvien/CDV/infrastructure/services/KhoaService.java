@@ -24,7 +24,12 @@ public class KhoaService {
     public Khoa findKhoaById(Long i) {
         return iKhoaRepository.findById(i).orElse(null);
     }
-
+    public Khoa findKhoaByName(String name){
+        Khoa khoa = new Khoa();
+        khoa.setTenKhoa(name);
+        Predicate predicate = KhoaPredicate.createPredicate(khoa);
+        return iKhoaRepository.findOne(predicate).orElse(null);
+    }
     public List<Khoa> filterKhoaByPage(int page, int size, Khoa khoa) {
         Predicate predicate = KhoaPredicate.createPredicate(khoa);
         return iKhoaRepository.findAll(predicate, PageRequest.of(page - 1, size, Sort.Direction.ASC, "id")).toList();

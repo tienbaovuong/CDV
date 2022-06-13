@@ -4,6 +4,7 @@ import com.quanlycongdoanvien.CDV.infrastructure.models.CongDoanVien;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuCDV;
 import com.quanlycongdoanvien.CDV.infrastructure.models.TaiKhoan;
 import com.quanlycongdoanvien.CDV.infrastructure.predicate.CDVPredicate;
+import com.quanlycongdoanvien.CDV.infrastructure.predicate.TaiKhoanPredicate;
 import com.quanlycongdoanvien.CDV.infrastructure.repositories.IBacLuongRepository;
 import com.quanlycongdoanvien.CDV.infrastructure.repositories.ICDVRepository;
 import com.quanlycongdoanvien.CDV.infrastructure.repositories.IChucVuRepository;
@@ -74,6 +75,13 @@ public class CongDoanVienService {
     //tai khoan related
     public TaiKhoan findTaiKhoan(long i) {
         return icdvRepository.findById(i).orElse(null).getTaiKhoan();
+    }
+
+    public TaiKhoan findTaiKhoan(String account){
+        TaiKhoan taiKhoan = new TaiKhoan();
+        taiKhoan.setAccount(account);
+        Predicate predicate = TaiKhoanPredicate.createPredicate(taiKhoan);
+        return iTaiKhoanRepository.findOne(predicate).orElse(null);
     }
 
     public TaiKhoan update(TaiKhoan taiKhoan) {
