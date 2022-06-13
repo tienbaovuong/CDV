@@ -65,7 +65,9 @@ public class CongDoanVienService {
 
     //phi thu related
     public List<PhiThuCDV> findPhiThu(Long i) {
-        return icdvRepository.findById(i).orElse(null).getPhiThuCDVList();
+        if(icdvRepository.findById(i).orElse(null)!= null)
+            return icdvRepository.findById(i).orElse(null).getPhiThuCDVList();
+        else return null;
     }
 
     public PhiThuCDV insertOrUpdate(PhiThuCDV phiThuCDV) {
