@@ -3,6 +3,8 @@ package com.quanlycongdoanvien.CDV.infrastructure.models;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.AttributeOverride;
@@ -60,21 +62,27 @@ public class CongDoanVien extends BaseEntity {
     @JoinColumn(name = "ID_Khoa")
     private Khoa khoa;
 
+
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<PhiThuCDV> phiThuCDVList;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<BacLuong> bacLuongList;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<ThamNien> thamNienList;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<HocHam> hocHamList;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<HocVi> hocViList;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<ChucVu> chucVuList;
 
