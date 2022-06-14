@@ -29,20 +29,26 @@ public class CongDoanVienApiController {
     KhoaService khoaService;
 
     @GetMapping("")
-    public CongDoanVien getCDV(@RequestParam Long id){
+    public CongDoanVien getCDV(@RequestParam Long id) {
         return congDoanVienService.findCDVById(id);
     }
+
     @PostMapping("")
-    public List<CongDoanVien> getListCDV(@RequestParam int page, @RequestParam int size, @RequestBody CongDoanVien congDoanVien){
+    public List<CongDoanVien> getListCDV(@RequestParam int page, @RequestParam int size, @RequestBody CongDoanVien congDoanVien) {
         return congDoanVienService.filterCDVByPage(page, size, congDoanVien);
     }
+
     @PostMapping("/count")
-    public Long countCDV(@RequestBody CongDoanVien congDoanVien){
+    public Long countCDV(@RequestBody CongDoanVien congDoanVien) {
         return congDoanVienService.filterCDVCounter(congDoanVien);
     }
+
     @PostMapping("/addCDV")
-    public void addCongDoanVien(@RequestParam String tenKhoa, @RequestBody CongDoanVien congDoanVien){
-        if(congDoanVien != null){
+    public String addCongDoanVien(@RequestParam String tenKhoa, @RequestBody CongDoanVien congDoanVien) {
+        if (congDoanVienService.findTaiKhoan(congDoanVien.getEmail()) != null) {
+            return "Account existed";
+        }
+        if (congDoanVien != null) {
             TaiKhoan taiKhoan = new TaiKhoan();
             taiKhoan.setAccount(congDoanVien.getEmail());
             taiKhoan.setPassword(congDoanVien.getCccd());
@@ -50,46 +56,56 @@ public class CongDoanVienApiController {
             congDoanVien.setTaiKhoan(taiKhoan);
             congDoanVien.setKhoa(khoaService.findKhoaByName(tenKhoa));
             congDoanVienService.insertOrUpdate((congDoanVien));
+            return "Success";
         }
+        return "Missing info";
     }
+
     @PutMapping("/updateCDV")
-    public void updateCongDoanVien(@RequestBody CongDoanVien congDoanVien){
+    public void updateCongDoanVien(@RequestBody CongDoanVien congDoanVien) {
         congDoanVienService.insertOrUpdate(congDoanVien);
     }
+
     @DeleteMapping("/deleteCDV")
-    public void deleteCongDoanVien(@RequestParam Long id){
+    public void deleteCongDoanVien(@RequestParam Long id) {
         congDoanVienService.delete(id);
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String account, @RequestParam String password, @RequestParam String type){
+    public String login(@RequestParam String account, @RequestParam String password, @RequestParam String type) {
         TaiKhoan taiKhoan = congDoanVienService.findTaiKhoan(account);
-        if(taiKhoan != null){
-            if(taiKhoan.getPassword().equals(password)){
-                if(type.equals("Truong")){
-                    if(taiKhoan.isQuanLyTruong()) return "Success";
-                }else if(type.equals("Vien")){
-                    if(taiKhoan.isQuanLyVien()) return "Success";
-                }else if(type.equals("Khoa")){
-                    if(taiKhoan.isQuanLyKhoa()) return "Success";
-                }else{
+        if (taiKhoan != null) {
+            if (taiKhoan.getPassword().equals(password)) {
+                if (type.equals("Truong")) {
+                    if (taiKhoan.isQuanLyTruong()) return "Success";
+                } else if (type.equals("Vien")) {
+                    if (taiKhoan.isQuanLyVien()) return "Success";
+                } else if (type.equals("Khoa")) {
+                    if (taiKhoan.isQuanLyKhoa()) return "Success";
+                } else {
                     return "Success";
                 }
                 return "Wrong type";
-            }
-            else{
+            } else {
                 return "Wrong account or password";
             }
-        }else{
+        } else {
             return "Wrong account or password";
         }
     }
+
     @PutMapping("/updateTaiKhoan")
-    public void updateTaiKhoan(@RequestBody TaiKhoan taiKhoan){
+    public void updateTaiKhoan(@RequestBody TaiKhoan taiKhoan) {
         congDoanVienService.update(taiKhoan);
     }
+
     @GetMapping("/phithu")
-    public List<PhiThuCDV> getPhiThu(@RequestParam Long id){
+    public List<PhiThuCDV> getPhiThu(@RequestParam Long id) {
         return congDoanVienService.findPhiThu(id);
+    }
+
+    @PutMapping("/phithu")
+    public void updatePhiThu(@RequestBody PhiThuCDV phiThuCDV) {
+        congDoanVienService.insertOrUpdate(phiThuCDV);
     }
 }

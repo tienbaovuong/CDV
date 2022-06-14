@@ -13,7 +13,7 @@ public class TruongService {
     ITruongRepository iTruongRepository;
     IPhiThuTruongRepository iPhiThuTruongRepository;
 
-    public Truong findTruong(){
+    public Truong findTruong() {
         return iTruongRepository.findAll().get(0);
     }
 

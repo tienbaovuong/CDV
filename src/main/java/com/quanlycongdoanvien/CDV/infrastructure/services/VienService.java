@@ -24,12 +24,14 @@ public class VienService {
     public Vien findVienById(Long i) {
         return iVienRepository.findById(i).orElse(null);
     }
-    public Vien findVienByName(String name){
+
+    public Vien findVienByName(String name) {
         Vien vien = new Vien();
         vien.setTenVien(name);
         Predicate predicate = VienPredicate.createPredicate(vien);
         return iVienRepository.findOne(predicate).orElse(null);
     }
+
     public List<Vien> filterVienByPage(int page, int size, Vien vien) {
         Predicate predicate = VienPredicate.createPredicate(vien);
         return iVienRepository.findAll(predicate, PageRequest.of(page - 1, size, Sort.Direction.ASC, "id")).toList();

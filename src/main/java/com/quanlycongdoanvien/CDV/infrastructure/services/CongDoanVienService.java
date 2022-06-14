@@ -65,7 +65,7 @@ public class CongDoanVienService {
 
     //phi thu related
     public List<PhiThuCDV> findPhiThu(Long i) {
-        if(icdvRepository.findById(i).orElse(null)!= null)
+        if (icdvRepository.findById(i).orElse(null) != null)
             return icdvRepository.findById(i).orElse(null).getPhiThuCDVList();
         else return null;
     }
@@ -79,10 +79,11 @@ public class CongDoanVienService {
         return icdvRepository.findById(i).orElse(null).getTaiKhoan();
     }
 
-    public TaiKhoan findTaiKhoan(String account){
+    public TaiKhoan findTaiKhoan(String account) {
         TaiKhoan taiKhoan = new TaiKhoan();
         taiKhoan.setAccount(account);
         Predicate predicate = TaiKhoanPredicate.createPredicate(taiKhoan);
+        if (predicate == null) return null;
         return iTaiKhoanRepository.findOne(predicate).orElse(null);
     }
 
