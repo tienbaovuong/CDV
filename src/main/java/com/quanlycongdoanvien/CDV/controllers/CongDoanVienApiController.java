@@ -95,8 +95,11 @@ public class CongDoanVienApiController {
         }
     }
     @GetMapping("/getaccount")
-    public TaiKhoan getAccount(@RequestParam String account){
-        return congDoanVienService.findTaiKhoan(account);
+    public void getAccount(){
+        CongDoanVien cdv = congDoanVienService.findCDVById(1L);
+        TaiKhoan taiKhoan = congDoanVienService.findTaiKhoan(1L);
+        taiKhoan.setCongDoanVien(cdv);
+        congDoanVienService.update(taiKhoan);
     }
 
     @PutMapping("/updateTaiKhoan")
