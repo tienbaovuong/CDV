@@ -11,7 +11,7 @@ public class VienPredicate {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qVien.exist.eq(true));
         if (qVien.tenVien != null) {
-            booleanBuilder.and(qVien.tenVien.eq(qVien.tenVien));
+            booleanBuilder.and(qVien.tenVien.eq(vien.getTenVien()));
         }
         return booleanBuilder.getValue();
     }

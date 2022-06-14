@@ -11,7 +11,7 @@ public class TaiKhoanPredicate {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         if (qTaiKhoan.account != null) {
-            booleanBuilder.and(qTaiKhoan.account.eq(qTaiKhoan.account));
+            booleanBuilder.and(qTaiKhoan.account.eq(taiKhoan.getAccount()));
         }
 
         return booleanBuilder.getValue();

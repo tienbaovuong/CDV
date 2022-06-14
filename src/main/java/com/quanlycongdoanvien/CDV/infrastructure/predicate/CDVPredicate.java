@@ -11,28 +11,28 @@ public class CDVPredicate {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qCongDoanVien.exist.eq(true));
         if (qCongDoanVien.soHieu != null) {
-            booleanBuilder.and(qCongDoanVien.soHieu.eq(qCongDoanVien.soHieu));
+            booleanBuilder.and(qCongDoanVien.soHieu.eq(cdv.getSoHieu()));
         }
         if (qCongDoanVien.ho != null) {
-            booleanBuilder.and(qCongDoanVien.ho.eq(qCongDoanVien.ho));
+            booleanBuilder.and(qCongDoanVien.ho.eq(cdv.getHo()));
         }
         if (qCongDoanVien.ten != null) {
-            booleanBuilder.and(qCongDoanVien.ten.eq(qCongDoanVien.ten));
+            booleanBuilder.and(qCongDoanVien.ten.eq(cdv.getTen()));
         }
         if (qCongDoanVien.gioiTinh != null) {
-            booleanBuilder.and(qCongDoanVien.gioiTinh.eq(qCongDoanVien.gioiTinh));
+            booleanBuilder.and(qCongDoanVien.gioiTinh.eq(cdv.getGioiTinh()));
         }
         if (qCongDoanVien.sdt != null) {
-            booleanBuilder.and(qCongDoanVien.sdt.eq(qCongDoanVien.sdt));
+            booleanBuilder.and(qCongDoanVien.sdt.eq(cdv.getSdt()));
         }
         if (qCongDoanVien.email != null) {
-            booleanBuilder.and(qCongDoanVien.email.eq(qCongDoanVien.email));
+            booleanBuilder.and(qCongDoanVien.email.eq(cdv.getEmail()));
         }
         if (qCongDoanVien.khoa.tenKhoa != null) {
-            booleanBuilder.and(qCongDoanVien.khoa.tenKhoa.eq(qCongDoanVien.khoa.tenKhoa));
+            booleanBuilder.and(qCongDoanVien.khoa.tenKhoa.eq(cdv.getKhoa().getTenKhoa()));
         }
         if (qCongDoanVien.khoa.vien.tenVien != null) {
-            booleanBuilder.and(qCongDoanVien.khoa.vien.tenVien.eq(qCongDoanVien.khoa.vien.tenVien));
+            booleanBuilder.and(qCongDoanVien.khoa.vien.tenVien.eq(cdv.getKhoa().getVien().getTenVien()));
         }
         return booleanBuilder.getValue();
     }
