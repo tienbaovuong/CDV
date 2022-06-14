@@ -11,6 +11,7 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_TRUONG")})
 public class Truong extends BaseEntity {
     @JsonManagedReference
-    @OneToMany(mappedBy = "truong")
+    @OneToMany(mappedBy = "truong", fetch = FetchType.LAZY)
     private List<Vien> danhSachVien;
 
     @Column(name = "Ten_truong")
@@ -40,6 +41,6 @@ public class Truong extends BaseEntity {
     private String taiKhoan;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "truong", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "truong", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PhiThuTruong> phiThuTruongList;
 }

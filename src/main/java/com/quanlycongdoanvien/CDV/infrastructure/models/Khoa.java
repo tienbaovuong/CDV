@@ -11,6 +11,7 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -29,7 +30,7 @@ import java.util.List;
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_KHOA")})
 @ToString(exclude = {"vien", "danhSachCDV"})
 public class Khoa extends BaseEntity {
-    @OneToMany(mappedBy = "khoa")
+    @OneToMany(mappedBy = "khoa", fetch = FetchType.LAZY)
     private List<CongDoanVien> danhSachCDV;
 
     @ManyToOne
@@ -45,6 +46,6 @@ public class Khoa extends BaseEntity {
     @Column(name = "Tai_khoan")
     private String taiKhoan;
 
-    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PhiThuKhoa> phiThuKhoaList;
 }

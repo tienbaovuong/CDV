@@ -12,6 +12,7 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -30,7 +31,7 @@ import java.util.List;
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_VIEN")})
 @ToString(exclude = {"truong", "danhSachKhoa"})
 public class Vien extends BaseEntity {
-    @OneToMany(mappedBy = "vien")
+    @OneToMany(mappedBy = "vien", fetch = FetchType.LAZY)
     private List<Khoa> danhSachKhoa;
 
     @JsonBackReference
@@ -47,6 +48,6 @@ public class Vien extends BaseEntity {
     @Column(name = "Tai_khoan")
     private String taiKhoan;
 
-    @OneToMany(mappedBy = "vien", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PhiThuVien> phiThuVienList;
 }
