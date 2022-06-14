@@ -2,6 +2,7 @@ package com.quanlycongdoanvien.CDV.infrastructure.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
         name = "SEQ_GEN",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_THAM_NIEN")})
+@ToString(exclude = {"congDoanVien"})
 public class ThamNien extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "ID_CDV")

@@ -2,6 +2,7 @@ package com.quanlycongdoanvien.CDV.infrastructure.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -26,6 +27,7 @@ import java.util.List;
         name = "SEQ_GEN",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_KHOA")})
+@ToString(exclude = {"vien", "danhSachCDV"})
 public class Khoa extends BaseEntity {
     @OneToMany(mappedBy = "khoa")
     private List<CongDoanVien> danhSachCDV;
