@@ -25,6 +25,7 @@ import java.util.List;
 public class KhoaApiController {
     @Autowired
     KhoaService khoaService;
+    @Autowired
     VienService vienService;
 
     @GetMapping("")

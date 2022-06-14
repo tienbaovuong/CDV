@@ -17,6 +17,7 @@ import java.util.List;
 public class KhoaService {
     @Autowired
     IKhoaRepository iKhoaRepository;
+    @Autowired
     IPhiThuKhoaRepository iPhiThuKhoaRepository;
 
     public Long findNumberOfKhoa() {

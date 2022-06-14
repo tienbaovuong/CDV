@@ -26,6 +26,7 @@ import java.util.List;
 public class CongDoanVienApiController {
     @Autowired
     CongDoanVienService congDoanVienService;
+    @Autowired
     KhoaService khoaService;
 
     @GetMapping("")

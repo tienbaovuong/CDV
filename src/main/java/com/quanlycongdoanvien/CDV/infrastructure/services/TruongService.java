@@ -13,10 +13,11 @@ import java.util.List;
 public class TruongService {
     @Autowired
     ITruongRepository iTruongRepository;
+    @Autowired
     IPhiThuTruongRepository iPhiThuTruongRepository;
 
     public Truong findTruong() {
-        return iTruongRepository.findById(Long.valueOf(1)).orElse(null);
+        return iTruongRepository.findById(1L).orElse(null);
     }
 
     public Truong insertOrUpdate(Truong truong) {

@@ -25,13 +25,18 @@ import java.util.List;
 public class CongDoanVienService {
     @Autowired
     private ICDVRepository icdvRepository;
+    @Autowired
     private IPhiThuCDVRepository iPhiThuCDVRepository;
     private IBacLuongRepository iBacLuongRepository;
     private IThamNienRepository iThamNienRepository;
     private IHocHamRepository iHocHamRepository;
     private IHocViRepository iHocViRepository;
     private IChucVuRepository iChucVuRepository;
+    @Autowired
     private ITaiKhoanRepository iTaiKhoanRepository;
+
+    public CongDoanVienService() {
+    }
 
     public Long findNumberOfCDV() {
         return icdvRepository.count();
@@ -76,6 +81,7 @@ public class CongDoanVienService {
 
     //tai khoan related
     public TaiKhoan findTaiKhoan(long i) {
+        if(icdvRepository.findById(i).orElse(null) == null) return null;
         return icdvRepository.findById(i).orElse(null).getTaiKhoan();
     }
 

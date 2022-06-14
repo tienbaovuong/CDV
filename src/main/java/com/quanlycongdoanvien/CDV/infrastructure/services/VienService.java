@@ -17,6 +17,7 @@ import java.util.List;
 public class VienService {
     @Autowired
     IVienRepository iVienRepository;
+    @Autowired
     IPhiThuVienRepository iPhiThuVienRepository;
 
     public Long findNumberOfVien() {
