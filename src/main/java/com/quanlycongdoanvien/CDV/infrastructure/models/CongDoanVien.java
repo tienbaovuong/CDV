@@ -99,7 +99,6 @@ public class CongDoanVien extends BaseEntity {
     private List<ChucVu> chucVuList;
 
     @JsonIgnore
-    @JsonManagedReference
     @OneToOne(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private TaiKhoan taiKhoan;
 }

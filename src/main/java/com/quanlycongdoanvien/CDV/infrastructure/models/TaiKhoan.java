@@ -31,7 +31,6 @@ import javax.persistence.Table;
 public class TaiKhoan extends BaseEntity {
 
     @JsonIgnore
-    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "ID_CDV")
     private CongDoanVien congDoanVien;
