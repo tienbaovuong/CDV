@@ -10,7 +10,7 @@ public class VienPredicate {
         QVien qVien = QVien.vien;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qVien.exist.eq(true));
-        if (qVien.tenVien != null) {
+        if (vien.getTenVien() != null) {
             booleanBuilder.and(qVien.tenVien.eq(vien.getTenVien()));
         }
         return booleanBuilder.getValue();

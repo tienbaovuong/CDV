@@ -10,7 +10,7 @@ public class TaiKhoanPredicate {
         QTaiKhoan qTaiKhoan = QTaiKhoan.taiKhoan;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        if (qTaiKhoan.account != null) {
+        if (taiKhoan.getAccount() != null) {
             booleanBuilder.and(qTaiKhoan.account.eq(taiKhoan.getAccount()));
         }
 

@@ -10,28 +10,29 @@ public class CDVPredicate {
         QCongDoanVien qCongDoanVien = QCongDoanVien.congDoanVien;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qCongDoanVien.exist.eq(true));
-        if (qCongDoanVien.soHieu != null) {
+
+        if (cdv.getSoHieu() != null) {
             booleanBuilder.and(qCongDoanVien.soHieu.eq(cdv.getSoHieu()));
         }
-        if (qCongDoanVien.ho != null) {
+        if (cdv.getHo() != null) {
             booleanBuilder.and(qCongDoanVien.ho.eq(cdv.getHo()));
         }
-        if (qCongDoanVien.ten != null) {
+        if (cdv.getTen() != null) {
             booleanBuilder.and(qCongDoanVien.ten.eq(cdv.getTen()));
         }
-        if (qCongDoanVien.gioiTinh != null) {
+        if (cdv.getGioiTinh() != null) {
             booleanBuilder.and(qCongDoanVien.gioiTinh.eq(cdv.getGioiTinh()));
         }
-        if (qCongDoanVien.sdt != null) {
+        if (cdv.getSdt() != null) {
             booleanBuilder.and(qCongDoanVien.sdt.eq(cdv.getSdt()));
         }
-        if (qCongDoanVien.email != null) {
+        if (cdv.getEmail() != null) {
             booleanBuilder.and(qCongDoanVien.email.eq(cdv.getEmail()));
         }
-        if (qCongDoanVien.khoa.tenKhoa != null) {
+        if (cdv.getKhoa().getTenKhoa() != null) {
             booleanBuilder.and(qCongDoanVien.khoa.tenKhoa.eq(cdv.getKhoa().getTenKhoa()));
         }
-        if (qCongDoanVien.khoa.vien.tenVien != null) {
+        if (cdv.getKhoa().getVien().getTenVien() != null) {
             booleanBuilder.and(qCongDoanVien.khoa.vien.tenVien.eq(cdv.getKhoa().getVien().getTenVien()));
         }
         return booleanBuilder.getValue();

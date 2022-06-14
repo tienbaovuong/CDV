@@ -10,10 +10,11 @@ public class KhoaPredicate {
         QKhoa qKhoa = QKhoa.khoa;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qKhoa.exist.eq(true));
-        if (qKhoa.tenKhoa != null) {
+
+        if (khoa.getTenKhoa() != null) {
             booleanBuilder.and(qKhoa.tenKhoa.eq(khoa.getTenKhoa()));
         }
-        if (qKhoa.vien.tenVien != null) {
+        if (khoa.getVien().getTenVien() != null) {
             booleanBuilder.and(qKhoa.vien.tenVien.eq(khoa.getVien().getTenVien()));
         }
         return booleanBuilder.getValue();
