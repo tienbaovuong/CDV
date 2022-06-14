@@ -96,10 +96,13 @@ public class CongDoanVienApiController {
     }
     @GetMapping("/getaccount")
     public void getAccount(){
-        CongDoanVien cdv = congDoanVienService.findCDVById(1L);
-        TaiKhoan taiKhoan = congDoanVienService.findTaiKhoan(1L);
-        taiKhoan.setCongDoanVien(cdv);
-        congDoanVienService.update(taiKhoan);
+        CongDoanVien congDoanVien = getCDV(1L);
+        TaiKhoan taiKhoan = new TaiKhoan();
+        taiKhoan.setAccount(congDoanVien.getEmail());
+        taiKhoan.setPassword(congDoanVien.getCccd());
+        taiKhoan.setCongDoanVien(congDoanVien);
+        congDoanVien.setTaiKhoan(taiKhoan);
+        congDoanVienService.insertOrUpdate((congDoanVien));
     }
 
     @PutMapping("/updateTaiKhoan")
