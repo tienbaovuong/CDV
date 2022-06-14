@@ -9,9 +9,11 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class KhoaService {
     @Autowired
     IKhoaRepository iKhoaRepository;
@@ -55,6 +57,7 @@ public class KhoaService {
     }
 
     public List<PhiThuKhoa> findPhiThu(Long i) {
+        if(iKhoaRepository.findById(i).orElse(null) == null) return null;
         return iKhoaRepository.findById(i).orElse(null).getPhiThuKhoaList();
     }
 
