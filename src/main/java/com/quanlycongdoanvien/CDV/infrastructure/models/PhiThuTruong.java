@@ -1,7 +1,9 @@
 package com.quanlycongdoanvien.CDV.infrastructure.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -21,7 +23,9 @@ import javax.persistence.Table;
         name = "SEQ_GEN",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_PHI_THU_TRUONG")})
-public class PhiThuTruong extends PhiThu{
+@ToString(exclude = {"truong"})
+public class PhiThuTruong extends PhiThu {
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "ID_Truong")
     private Truong truong;
