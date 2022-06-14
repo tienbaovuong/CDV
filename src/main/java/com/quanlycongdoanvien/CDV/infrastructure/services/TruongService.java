@@ -16,7 +16,7 @@ public class TruongService {
     IPhiThuTruongRepository iPhiThuTruongRepository;
 
     public Truong findTruong() {
-        return iTruongRepository.findAll().get(0);
+        return iTruongRepository.findById(Long.valueOf(1)).orElse(null);
     }
 
     public Truong insertOrUpdate(Truong truong) {
