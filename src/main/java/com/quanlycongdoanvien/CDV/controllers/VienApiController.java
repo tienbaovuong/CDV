@@ -59,6 +59,8 @@ public class VienApiController {
 
     @PutMapping("/updateVien")
     public void updateVien(@RequestBody Vien vien) {
+        Vien vien2 = vienService.findVienById(vien.getId());
+        vien.setTruong(vien2.getTruong());
         vienService.insertOrUpdate(vien);
     }
 
