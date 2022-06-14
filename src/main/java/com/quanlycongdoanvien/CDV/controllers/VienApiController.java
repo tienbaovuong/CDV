@@ -2,6 +2,7 @@ package com.quanlycongdoanvien.CDV.controllers;
 
 import com.quanlycongdoanvien.CDV.configurations.Webconfig;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuVien;
+import com.quanlycongdoanvien.CDV.infrastructure.models.Truong;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Vien;
 import com.quanlycongdoanvien.CDV.infrastructure.services.TruongService;
 import com.quanlycongdoanvien.CDV.infrastructure.services.VienService;
@@ -43,15 +44,17 @@ public class VienApiController {
     }
 
     @PostMapping("/addVien")
-    public void addKhoa(@RequestBody Vien vien) {
+    public void addVien(@RequestBody Vien vien) {
         if (vien != null) {
-            vien.setTruong(truongService.findTruong());
+            Truong truong = truongService.findTruong();
+            if(truong == null) System.out.println("null");
+            vien.setTruong(truong);
             vienService.insertOrUpdate(vien);
         }
     }
 
     @PutMapping("/updateVien")
-    public void updateKhoa(@RequestBody Vien vien) {
+    public void updateVien(@RequestBody Vien vien) {
         vienService.insertOrUpdate(vien);
     }
 
