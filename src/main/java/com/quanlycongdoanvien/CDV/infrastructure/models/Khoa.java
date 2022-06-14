@@ -1,5 +1,6 @@
 package com.quanlycongdoanvien.CDV.infrastructure.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +36,7 @@ public class Khoa extends BaseEntity {
     @OneToMany(mappedBy = "khoa", fetch = FetchType.LAZY)
     private List<CongDoanVien> danhSachCDV;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "ID_Vien")
     private Vien vien;
