@@ -19,5 +19,5 @@ public abstract class BaseEntity {
     protected Long id;
 
     @Column(name = "Exist")
-    protected boolean exist;
+    protected boolean exist = true;
 }
