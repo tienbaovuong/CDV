@@ -26,6 +26,7 @@ import java.util.List;
 public class VienApiController {
     @Autowired
     VienService vienService;
+    @Autowired
     TruongService truongService;
 
     @GetMapping("")
@@ -47,7 +48,10 @@ public class VienApiController {
     public void addVien(@RequestBody Vien vien) {
         if (vien != null) {
             Truong truong = truongService.findTruong();
-            if(truong == null) System.out.println("null");
+            if(truong == null) {
+                System.out.println("null");
+                return;
+            }
             vien.setTruong(truong);
             vienService.insertOrUpdate(vien);
         }
