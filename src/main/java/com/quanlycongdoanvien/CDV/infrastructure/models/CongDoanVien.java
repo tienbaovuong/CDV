@@ -98,6 +98,7 @@ public class CongDoanVien extends BaseEntity {
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<ChucVu> chucVuList;
 
+    @JsonIgnore
     @JsonManagedReference
     @OneToOne(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private TaiKhoan taiKhoan;
