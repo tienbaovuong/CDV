@@ -1,9 +1,7 @@
 package com.quanlycongdoanvien.CDV.infrastructure.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -24,9 +22,7 @@ import java.time.LocalDateTime;
         name = "SEQ_GEN",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_HOC_VI")})
-@ToString(exclude = {"congDoanVien"})
-public class HocVi extends BaseEntity {
-    @JsonBackReference
+public class HocVi extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "ID_CDV")
     private CongDoanVien congDoanVien;

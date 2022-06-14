@@ -17,7 +17,4 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_GEN")
     @Column(name = "ID")
     protected Long id;
-
-    @Column(name = "Exist")
-    protected boolean exist = true;
 }

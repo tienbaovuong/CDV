@@ -2,14 +2,12 @@ package com.quanlycongdoanvien.CDV;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@EnableSwagger2
 @SpringBootApplication
 public class CdvApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(CdvApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(CdvApplication.class, args);
+	}
 
 }
