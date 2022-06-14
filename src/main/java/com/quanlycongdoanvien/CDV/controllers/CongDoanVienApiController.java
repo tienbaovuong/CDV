@@ -80,9 +80,9 @@ public class CongDoanVienApiController {
                 if (type.equals("Truong")) {
                     if (taiKhoan.isQuanLyTruong()) return "Success";
                 } else if (type.equals("Vien")) {
-                    if (taiKhoan.isQuanLyVien()) return "Success";
+                    if (taiKhoan.isQuanLyVien()) return taiKhoan.getCongDoanVien().getKhoa().getVien().getId().toString();
                 } else if (type.equals("Khoa")) {
-                    if (taiKhoan.isQuanLyKhoa()) return "Success";
+                    if (taiKhoan.isQuanLyKhoa()) return taiKhoan.getCongDoanVien().getKhoa().getId().toString();
                 } else {
                     return "Success";
                 }
@@ -93,6 +93,10 @@ public class CongDoanVienApiController {
         } else {
             return "Wrong account or password";
         }
+    }
+    @GetMapping("/getaccount")
+    public TaiKhoan getAccount(@RequestParam String account){
+        return congDoanVienService.findTaiKhoan(account);
     }
 
     @PutMapping("/updateTaiKhoan")
