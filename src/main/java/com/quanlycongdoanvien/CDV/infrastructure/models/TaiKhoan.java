@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -26,7 +27,7 @@ import javax.persistence.Table;
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_PHI_THU_CDV")})
 @ToString(exclude = {"congDoanVien"})
 public class TaiKhoan extends BaseEntity {
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_CDV")
     private CongDoanVien congDoanVien;
 
@@ -44,4 +45,5 @@ public class TaiKhoan extends BaseEntity {
 
     @Column(name = "La_quan_ly_truong")
     private boolean isQuanLyTruong = false;
+
 }
