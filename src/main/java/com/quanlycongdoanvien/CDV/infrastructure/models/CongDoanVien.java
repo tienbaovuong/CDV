@@ -1,5 +1,8 @@
 package com.quanlycongdoanvien.CDV.infrastructure.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -61,34 +64,41 @@ public class CongDoanVien extends BaseEntity {
     @Column(name = "CCCD")
     private String cccd;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "ID_Khoa")
     private Khoa khoa;
 
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<PhiThuCDV> phiThuCDVList;
 
+    @JsonManagedReference
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<BacLuong> bacLuongList;
 
+    @JsonManagedReference
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<ThamNien> thamNienList;
 
+    @JsonManagedReference
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<HocHam> hocHamList;
 
+    @JsonManagedReference
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<HocVi> hocViList;
 
+    @JsonManagedReference
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<ChucVu> chucVuList;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private TaiKhoan taiKhoan;
 }

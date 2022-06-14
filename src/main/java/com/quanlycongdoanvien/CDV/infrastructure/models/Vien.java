@@ -1,6 +1,7 @@
 package com.quanlycongdoanvien.CDV.infrastructure.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,6 +32,7 @@ import java.util.List;
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_VIEN")})
 @ToString(exclude = {"truong", "danhSachKhoa"})
 public class Vien extends BaseEntity {
+    @JsonManagedReference
     @OneToMany(mappedBy = "vien", fetch = FetchType.LAZY)
     private List<Khoa> danhSachKhoa;
 
@@ -48,6 +50,7 @@ public class Vien extends BaseEntity {
     @Column(name = "Tai_khoan")
     private String taiKhoan;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "vien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PhiThuVien> phiThuVienList;
 }
