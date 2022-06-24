@@ -69,7 +69,11 @@ public class KhoaApiController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestBody PhiThuKhoa phiThuKhoa) {
-        khoaService.insertOrUpdate(phiThuKhoa);
+    public void updatePhiThu(@RequestParam Long id ,@RequestBody PhiThuKhoa phiThuKhoa) {
+        Khoa khoa = khoaService.findKhoaById(id);
+        if(khoa != null) {
+            phiThuKhoa.setKhoa(khoa);
+            khoaService.insertOrUpdate(phiThuKhoa);
+        }
     }
 }

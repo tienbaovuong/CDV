@@ -1,9 +1,14 @@
 package com.quanlycongdoanvien.CDV.controllers;
 
 import com.quanlycongdoanvien.CDV.configurations.Webconfig;
+import com.quanlycongdoanvien.CDV.infrastructure.models.BacLuong;
+import com.quanlycongdoanvien.CDV.infrastructure.models.ChucVu;
 import com.quanlycongdoanvien.CDV.infrastructure.models.CongDoanVien;
+import com.quanlycongdoanvien.CDV.infrastructure.models.HocHam;
+import com.quanlycongdoanvien.CDV.infrastructure.models.HocVi;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuCDV;
 import com.quanlycongdoanvien.CDV.infrastructure.models.TaiKhoan;
+import com.quanlycongdoanvien.CDV.infrastructure.models.ThamNien;
 import com.quanlycongdoanvien.CDV.infrastructure.services.CongDoanVienService;
 import com.quanlycongdoanvien.CDV.infrastructure.services.KhoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +65,21 @@ public class CongDoanVienApiController {
             }
             else {
                 congDoanVien.setKhoa(khoaService.findKhoaById(idKhoa));
+                for(BacLuong bacLuong: congDoanVien.getBacLuongList()){
+                    bacLuong.setCongDoanVien(congDoanVien);
+                }
+                for(ChucVu chucVu: congDoanVien.getChucVuList()){
+                    chucVu.setCongDoanVien(congDoanVien);
+                }
+                for(HocHam hocHam: congDoanVien.getHocHamList()){
+                    hocHam.setCongDoanVien(congDoanVien);
+                }
+                for(HocVi hocVi: congDoanVien.getHocViList()){
+                    hocVi.setCongDoanVien(congDoanVien);
+                }
+                for(ThamNien thamNien: congDoanVien.getThamNienList()){
+                    thamNien.setCongDoanVien(congDoanVien);
+                }
                 congDoanVienService.insertOrUpdate((congDoanVien));
                 return "Success";
             }
@@ -69,6 +89,21 @@ public class CongDoanVienApiController {
 
     @PutMapping("/updateCDV")
     public void updateCongDoanVien(@RequestBody CongDoanVien congDoanVien) {
+        for(BacLuong bacLuong: congDoanVien.getBacLuongList()){
+            bacLuong.setCongDoanVien(congDoanVien);
+        }
+        for(ChucVu chucVu: congDoanVien.getChucVuList()){
+            chucVu.setCongDoanVien(congDoanVien);
+        }
+        for(HocHam hocHam: congDoanVien.getHocHamList()){
+            hocHam.setCongDoanVien(congDoanVien);
+        }
+        for(HocVi hocVi: congDoanVien.getHocViList()){
+            hocVi.setCongDoanVien(congDoanVien);
+        }
+        for(ThamNien thamNien: congDoanVien.getThamNienList()){
+            thamNien.setCongDoanVien(congDoanVien);
+        }
         congDoanVienService.insertOrUpdate(congDoanVien);
     }
 
@@ -100,13 +135,17 @@ public class CongDoanVienApiController {
         }
     }
     @GetMapping("/getaccount")
-    public void getAccount(@RequestParam Long id){
-        congDoanVienService.findTaiKhoan(id);
+    public TaiKhoan getAccount(@RequestParam Long id){
+        return congDoanVienService.findCDVById(id).getTaiKhoan();
     }
 
     @PutMapping("/updateTaiKhoan")
-    public void updateTaiKhoan(@RequestBody TaiKhoan taiKhoan) {
-        congDoanVienService.update(taiKhoan);
+    public void updateTaiKhoan(@RequestParam Long id ,@RequestBody TaiKhoan taiKhoan) {
+        CongDoanVien cdv = congDoanVienService.findCDVById(id);
+        if(cdv != null) {
+            taiKhoan.setCongDoanVien(cdv);
+            congDoanVienService.update(taiKhoan);
+        }
     }
 
     @GetMapping("/phithu")
@@ -115,7 +154,11 @@ public class CongDoanVienApiController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestBody PhiThuCDV phiThuCDV) {
-        congDoanVienService.insertOrUpdate(phiThuCDV);
+    public void updatePhiThu(@RequestParam Long id ,@RequestBody PhiThuCDV phiThuCDV) {
+        CongDoanVien cdv = congDoanVienService.findCDVById(id);
+        if(cdv != null) {
+            phiThuCDV.setCongDoanVien(cdv);
+            congDoanVienService.insertOrUpdate(phiThuCDV);
+        }
     }
 }

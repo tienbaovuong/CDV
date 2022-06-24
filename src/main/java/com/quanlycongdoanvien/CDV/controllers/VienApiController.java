@@ -59,8 +59,6 @@ public class VienApiController {
 
     @PutMapping("/updateVien")
     public void updateVien(@RequestBody Vien vien) {
-        Vien vien2 = vienService.findVienById(vien.getId());
-        vien.setTruong(vien2.getTruong());
         vienService.insertOrUpdate(vien);
     }
 
@@ -75,7 +73,11 @@ public class VienApiController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestBody PhiThuVien phiThuVien) {
-        vienService.insertOrUpdate(phiThuVien);
+    public void updatePhiThu(@RequestParam Long id ,@RequestBody PhiThuVien phiThuVien) {
+        Vien vien = vienService.findVienById(id);
+        if(vien != null) {
+            phiThuVien.setVien(vien);
+            vienService.insertOrUpdate(phiThuVien);
+        }
     }
 }
