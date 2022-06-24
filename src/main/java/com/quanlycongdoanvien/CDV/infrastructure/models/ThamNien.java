@@ -1,6 +1,7 @@
 package com.quanlycongdoanvien.CDV.infrastructure.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,7 +27,7 @@ import java.time.LocalDateTime;
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_THAM_NIEN")})
 @ToString(exclude = {"congDoanVien"})
 public class ThamNien extends BaseEntity {
-    @JsonBackReference(value = "thamnien")
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_CDV")
     private CongDoanVien congDoanVien;

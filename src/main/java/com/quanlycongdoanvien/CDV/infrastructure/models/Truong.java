@@ -1,6 +1,7 @@
 package com.quanlycongdoanvien.CDV.infrastructure.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +29,7 @@ import java.util.List;
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_TRUONG")})
 public class Truong extends BaseEntity {
-    @JsonBackReference(value = "vien-truong")
+    @JsonIgnore
     @OneToMany(mappedBy = "truong", fetch = FetchType.LAZY)
     private List<Vien> danhSachVien;
 
@@ -41,7 +42,7 @@ public class Truong extends BaseEntity {
     @Column(name = "Tai_khoan")
     private String taiKhoan;
 
-    @JsonBackReference(value = "phithu-truong")
+    @JsonIgnore
     @OneToMany(mappedBy = "truong", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PhiThuTruong> phiThuTruongList;
 }

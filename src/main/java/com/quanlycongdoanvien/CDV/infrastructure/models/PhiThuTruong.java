@@ -1,6 +1,7 @@
 package com.quanlycongdoanvien.CDV.infrastructure.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +27,7 @@ import javax.persistence.Table;
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_PHI_THU_TRUONG")})
 @ToString(exclude = {"truong"})
 public class PhiThuTruong extends PhiThu {
-    @JsonManagedReference(value = "phithu-truong")
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_Truong")
     private Truong truong;
