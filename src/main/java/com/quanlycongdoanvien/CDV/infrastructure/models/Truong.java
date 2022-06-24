@@ -41,7 +41,7 @@ public class Truong extends BaseEntity {
     @Column(name = "Tai_khoan")
     private String taiKhoan;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "truong", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PhiThuTruong> phiThuTruongList;
 }
