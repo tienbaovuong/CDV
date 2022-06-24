@@ -36,7 +36,7 @@ public class Vien extends BaseEntity {
     @OneToMany(mappedBy = "vien", fetch = FetchType.LAZY)
     private List<Khoa> danhSachKhoa;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "ID_Truong")
     private Truong truong;

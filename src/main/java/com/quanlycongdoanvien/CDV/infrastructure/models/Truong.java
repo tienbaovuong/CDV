@@ -1,5 +1,6 @@
 package com.quanlycongdoanvien.CDV.infrastructure.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,7 @@ import java.util.List;
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_TRUONG")})
 public class Truong extends BaseEntity {
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "truong", fetch = FetchType.LAZY)
     private List<Vien> danhSachVien;
 
