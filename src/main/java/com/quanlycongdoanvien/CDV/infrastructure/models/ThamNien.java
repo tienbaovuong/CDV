@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_THAM_NIEN")})
 @ToString(exclude = {"congDoanVien"})
 public class ThamNien extends BaseEntity {
-    @JsonBackReference
+    @JsonBackReference(value = "thamnien")
     @ManyToOne
     @JoinColumn(name = "ID_CDV")
     private CongDoanVien congDoanVien;

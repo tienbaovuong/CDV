@@ -26,7 +26,7 @@ import javax.persistence.Table;
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_PHI_THU_TRUONG")})
 @ToString(exclude = {"truong"})
 public class PhiThuTruong extends PhiThu {
-    @JsonManagedReference
+    @JsonManagedReference(value = "phithu-truong")
     @ManyToOne
     @JoinColumn(name = "ID_Truong")
     private Truong truong;

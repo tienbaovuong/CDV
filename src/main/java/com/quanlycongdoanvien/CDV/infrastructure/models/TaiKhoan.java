@@ -31,7 +31,7 @@ import javax.persistence.Table;
 @ToString(exclude = {"congDoanVien"})
 public class TaiKhoan extends BaseEntity {
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "taikhoan")
     @OneToOne
     @JoinColumn(name = "ID_CDV")
     private CongDoanVien congDoanVien;

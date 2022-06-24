@@ -28,7 +28,7 @@ import java.util.List;
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_TRUONG")})
 public class Truong extends BaseEntity {
-    @JsonBackReference
+    @JsonBackReference(value = "vien-truong")
     @OneToMany(mappedBy = "truong", fetch = FetchType.LAZY)
     private List<Vien> danhSachVien;
 
@@ -41,7 +41,7 @@ public class Truong extends BaseEntity {
     @Column(name = "Tai_khoan")
     private String taiKhoan;
 
-    @JsonBackReference
+    @JsonBackReference(value = "phithu-truong")
     @OneToMany(mappedBy = "truong", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PhiThuTruong> phiThuTruongList;
 }

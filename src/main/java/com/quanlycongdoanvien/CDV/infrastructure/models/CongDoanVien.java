@@ -63,41 +63,41 @@ public class CongDoanVien extends BaseEntity {
     @Column(name = "CCCD")
     private String cccd;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "cdv-khoa")
     @ManyToOne
     @JoinColumn(name = "ID_Khoa")
     private Khoa khoa;
 
-    @JsonBackReference
+    @JsonBackReference(value = "phithu-cdv")
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<PhiThuCDV> phiThuCDVList;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "bacluong")
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<BacLuong> bacLuongList;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "thamnien")
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<ThamNien> thamNienList;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "hocham")
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<HocHam> hocHamList;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "hocvi")
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<HocVi> hocViList;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "chucvu")
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private List<ChucVu> chucVuList;
 
-    @JsonBackReference
+    @JsonBackReference(value = "taikhoan")
     @OneToOne(mappedBy = "congDoanVien", cascade = CascadeType.ALL)
     private TaiKhoan taiKhoan;
 }

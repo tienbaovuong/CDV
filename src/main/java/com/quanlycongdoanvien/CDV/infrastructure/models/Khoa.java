@@ -31,11 +31,11 @@ import java.util.List;
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {@Parameter(name = "sequence_name", value = "SEQ_KHOA")})
 public class Khoa extends BaseEntity {
-    @JsonBackReference
+    @JsonBackReference(value = "cdv-khoa")
     @OneToMany(mappedBy = "khoa", fetch = FetchType.LAZY)
     private List<CongDoanVien> danhSachCDV;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "khoa-vien")
     @ManyToOne
     @JoinColumn(name = "ID_Vien")
     private Vien vien;
@@ -49,7 +49,7 @@ public class Khoa extends BaseEntity {
     @Column(name = "Tai_khoan")
     private String taiKhoan;
 
-    @JsonBackReference
+    @JsonBackReference(value = "phithu-khoa")
     @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PhiThuKhoa> phiThuKhoaList;
 }
