@@ -44,10 +44,10 @@ public class KhoaApiController {
     }
 
     @PostMapping("/addKhoa")
-    public void addKhoa(@RequestParam String tenVien, @RequestBody Khoa khoa) {
+    public void addKhoa(@RequestParam Long idVien, @RequestBody Khoa khoa) {
         if (khoa != null) {
-            if(vienService.findVienByName(tenVien) != null) {
-                khoa.setVien(vienService.findVienByName(tenVien));
+            if(vienService.findVienById(idVien) != null) {
+                khoa.setVien(vienService.findVienById(idVien));
                 khoaService.insertOrUpdate(khoa);
             }
         }

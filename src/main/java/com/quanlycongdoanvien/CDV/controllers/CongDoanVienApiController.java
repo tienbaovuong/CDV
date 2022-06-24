@@ -45,7 +45,7 @@ public class CongDoanVienApiController {
     }
 
     @PostMapping("/addCDV")
-    public String addCongDoanVien(@RequestParam String tenKhoa, @RequestBody CongDoanVien congDoanVien) {
+    public String addCongDoanVien(@RequestParam Long idKhoa, @RequestBody CongDoanVien congDoanVien) {
         if (congDoanVienService.findTaiKhoan(congDoanVien.getEmail()) != null) {
             return "Account existed";
         }
@@ -55,9 +55,14 @@ public class CongDoanVienApiController {
             taiKhoan.setPassword(congDoanVien.getCccd());
             taiKhoan.setCongDoanVien(congDoanVien);
             congDoanVien.setTaiKhoan(taiKhoan);
-            congDoanVien.setKhoa(khoaService.findKhoaByName(tenKhoa));
-            congDoanVienService.insertOrUpdate((congDoanVien));
-            return "Success";
+            if(khoaService.findKhoaById(idKhoa) == null){
+                return "Cant find khoa";
+            }
+            else {
+                congDoanVien.setKhoa(khoaService.findKhoaById(idKhoa));
+                congDoanVienService.insertOrUpdate((congDoanVien));
+                return "Success";
+            }
         }
         return "Missing info";
     }
