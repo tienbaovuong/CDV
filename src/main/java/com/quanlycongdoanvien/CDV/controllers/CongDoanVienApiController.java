@@ -113,25 +113,28 @@ public class CongDoanVienApiController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String account, @RequestParam String password, @RequestParam String type) {
+    public Long login(@RequestParam String account, @RequestParam String password, @RequestParam String type) {
         TaiKhoan taiKhoan = congDoanVienService.findTaiKhoan(account);
         if (taiKhoan != null) {
             if (taiKhoan.getPassword().equals(password)) {
                 if (type.equals("Truong")) {
-                    if (taiKhoan.isQuanLyTruong()) return "Success";
+                    if (taiKhoan.isQuanLyTruong()) return 1L;
                 } else if (type.equals("Vien")) {
-                    if (taiKhoan.isQuanLyVien()) return taiKhoan.getCongDoanVien().getKhoa().getVien().getId().toString();
+                    if (taiKhoan.isQuanLyVien()) return taiKhoan.getCongDoanVien().getKhoa().getVien().getId();
                 } else if (type.equals("Khoa")) {
-                    if (taiKhoan.isQuanLyKhoa()) return taiKhoan.getCongDoanVien().getKhoa().getId().toString();
+                    if (taiKhoan.isQuanLyKhoa()) return taiKhoan.getCongDoanVien().getKhoa().getId();
                 } else {
-                    return "Success";
+                    return taiKhoan.getCongDoanVien().getId();
                 }
-                return "Wrong type";
+                //wrong type
+                return -1L;
             } else {
-                return "Wrong account or password";
+                //wrong account or password
+                return 0L;
             }
         } else {
-            return "Wrong account or password";
+            //wrong account or password
+            return 0L;
         }
     }
     @GetMapping("/getaccount")
