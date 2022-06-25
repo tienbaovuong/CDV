@@ -1,6 +1,8 @@
 package com.quanlycongdoanvien.CDV.controllers;
 
 import com.quanlycongdoanvien.CDV.configurations.Webconfig;
+import com.quanlycongdoanvien.CDV.infrastructure.DTO.Number;
+import com.quanlycongdoanvien.CDV.infrastructure.DTO.Text;
 import com.quanlycongdoanvien.CDV.infrastructure.models.BacLuong;
 import com.quanlycongdoanvien.CDV.infrastructure.models.ChucVu;
 import com.quanlycongdoanvien.CDV.infrastructure.models.CongDoanVien;
@@ -45,14 +47,14 @@ public class CongDoanVienApiController {
     }
 
     @PostMapping("/count")
-    public Long countCDV(@RequestBody CongDoanVien congDoanVien) {
-        return congDoanVienService.filterCDVCounter(congDoanVien);
+    public Number countCDV(@RequestBody CongDoanVien congDoanVien) {
+        return new Number(congDoanVienService.filterCDVCounter(congDoanVien));
     }
 
     @PostMapping("/addCDV")
-    public String addCongDoanVien(@RequestParam Long idKhoa, @RequestBody CongDoanVien congDoanVien) {
+    public Text addCongDoanVien(@RequestParam Long idKhoa, @RequestBody CongDoanVien congDoanVien) {
         if (congDoanVienService.findTaiKhoan(congDoanVien.getEmail()) != null) {
-            return "Account existed";
+            return new Text("Account existed");
         }
         if (congDoanVien != null) {
             TaiKhoan taiKhoan = new TaiKhoan();
@@ -60,48 +62,47 @@ public class CongDoanVienApiController {
             taiKhoan.setPassword(congDoanVien.getCccd());
             taiKhoan.setCongDoanVien(congDoanVien);
             congDoanVien.setTaiKhoan(taiKhoan);
-            if(khoaService.findKhoaById(idKhoa) == null){
-                return "Cant find khoa";
-            }
-            else {
+            if (khoaService.findKhoaById(idKhoa) == null) {
+                return new Text("Cant find khoa");
+            } else {
                 congDoanVien.setKhoa(khoaService.findKhoaById(idKhoa));
-                for(BacLuong bacLuong: congDoanVien.getBacLuongList()){
+                for (BacLuong bacLuong : congDoanVien.getBacLuongList()) {
                     bacLuong.setCongDoanVien(congDoanVien);
                 }
-                for(ChucVu chucVu: congDoanVien.getChucVuList()){
+                for (ChucVu chucVu : congDoanVien.getChucVuList()) {
                     chucVu.setCongDoanVien(congDoanVien);
                 }
-                for(HocHam hocHam: congDoanVien.getHocHamList()){
+                for (HocHam hocHam : congDoanVien.getHocHamList()) {
                     hocHam.setCongDoanVien(congDoanVien);
                 }
-                for(HocVi hocVi: congDoanVien.getHocViList()){
+                for (HocVi hocVi : congDoanVien.getHocViList()) {
                     hocVi.setCongDoanVien(congDoanVien);
                 }
-                for(ThamNien thamNien: congDoanVien.getThamNienList()){
+                for (ThamNien thamNien : congDoanVien.getThamNienList()) {
                     thamNien.setCongDoanVien(congDoanVien);
                 }
                 congDoanVienService.insertOrUpdate((congDoanVien));
-                return "Success";
+                return new Text("Success");
             }
         }
-        return "Missing info";
+        return new Text("Missing info");
     }
 
     @PutMapping("/updateCDV")
     public void updateCongDoanVien(@RequestBody CongDoanVien congDoanVien) {
-        for(BacLuong bacLuong: congDoanVien.getBacLuongList()){
+        for (BacLuong bacLuong : congDoanVien.getBacLuongList()) {
             bacLuong.setCongDoanVien(congDoanVien);
         }
-        for(ChucVu chucVu: congDoanVien.getChucVuList()){
+        for (ChucVu chucVu : congDoanVien.getChucVuList()) {
             chucVu.setCongDoanVien(congDoanVien);
         }
-        for(HocHam hocHam: congDoanVien.getHocHamList()){
+        for (HocHam hocHam : congDoanVien.getHocHamList()) {
             hocHam.setCongDoanVien(congDoanVien);
         }
-        for(HocVi hocVi: congDoanVien.getHocViList()){
+        for (HocVi hocVi : congDoanVien.getHocViList()) {
             hocVi.setCongDoanVien(congDoanVien);
         }
-        for(ThamNien thamNien: congDoanVien.getThamNienList()){
+        for (ThamNien thamNien : congDoanVien.getThamNienList()) {
             thamNien.setCongDoanVien(congDoanVien);
         }
         congDoanVienService.insertOrUpdate(congDoanVien);
@@ -113,39 +114,41 @@ public class CongDoanVienApiController {
     }
 
     @PostMapping("/login")
-    public Long login(@RequestParam String account, @RequestParam String password, @RequestParam String type) {
+    public Number login(@RequestParam String account, @RequestParam String password, @RequestParam String type) {
         TaiKhoan taiKhoan = congDoanVienService.findTaiKhoan(account);
         if (taiKhoan != null) {
             if (taiKhoan.getPassword().equals(password)) {
                 if (type.equals("Truong")) {
-                    if (taiKhoan.isQuanLyTruong()) return 1L;
+                    if (taiKhoan.isQuanLyTruong()) return new Number(1L);
                 } else if (type.equals("Vien")) {
-                    if (taiKhoan.isQuanLyVien()) return taiKhoan.getCongDoanVien().getKhoa().getVien().getId();
+                    if (taiKhoan.isQuanLyVien())
+                        return new Number(taiKhoan.getCongDoanVien().getKhoa().getVien().getId());
                 } else if (type.equals("Khoa")) {
-                    if (taiKhoan.isQuanLyKhoa()) return taiKhoan.getCongDoanVien().getKhoa().getId();
+                    if (taiKhoan.isQuanLyKhoa()) return new Number(taiKhoan.getCongDoanVien().getKhoa().getId());
                 } else {
-                    return taiKhoan.getCongDoanVien().getId();
+                    return new Number(taiKhoan.getCongDoanVien().getId());
                 }
                 //wrong type
-                return -1L;
+                return new Number(-1L);
             } else {
                 //wrong account or password
-                return 0L;
+                return new Number(0L);
             }
         } else {
             //wrong account or password
-            return 0L;
+            return new Number(0L);
         }
     }
+
     @GetMapping("/getaccount")
-    public TaiKhoan getAccount(@RequestParam Long id){
+    public TaiKhoan getAccount(@RequestParam Long id) {
         return congDoanVienService.findCDVById(id).getTaiKhoan();
     }
 
     @PutMapping("/updateTaiKhoan")
-    public void updateTaiKhoan(@RequestParam Long id ,@RequestBody TaiKhoan taiKhoan) {
+    public void updateTaiKhoan(@RequestParam Long id, @RequestBody TaiKhoan taiKhoan) {
         CongDoanVien cdv = congDoanVienService.findCDVById(id);
-        if(cdv != null) {
+        if (cdv != null) {
             taiKhoan.setCongDoanVien(cdv);
             congDoanVienService.update(taiKhoan);
         }
@@ -157,9 +160,9 @@ public class CongDoanVienApiController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestParam Long id ,@RequestBody PhiThuCDV phiThuCDV) {
+    public void updatePhiThu(@RequestParam Long id, @RequestBody PhiThuCDV phiThuCDV) {
         CongDoanVien cdv = congDoanVienService.findCDVById(id);
-        if(cdv != null) {
+        if (cdv != null) {
             phiThuCDV.setCongDoanVien(cdv);
             congDoanVienService.insertOrUpdate(phiThuCDV);
         }

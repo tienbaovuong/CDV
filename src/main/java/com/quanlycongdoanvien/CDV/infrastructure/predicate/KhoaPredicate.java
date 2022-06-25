@@ -14,7 +14,7 @@ public class KhoaPredicate {
         if (khoa.getTenKhoa() != null) {
             booleanBuilder.and(qKhoa.tenKhoa.eq(khoa.getTenKhoa()));
         }
-        if(khoa.getVien() != null){
+        if (khoa.getVien() != null) {
             if (khoa.getVien().getTenVien() != null) {
                 booleanBuilder.and(qKhoa.vien.tenVien.eq(khoa.getVien().getTenVien()));
             }

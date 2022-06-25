@@ -1,6 +1,7 @@
 package com.quanlycongdoanvien.CDV.controllers;
 
 import com.quanlycongdoanvien.CDV.configurations.Webconfig;
+import com.quanlycongdoanvien.CDV.infrastructure.DTO.Number;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuVien;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Truong;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Vien;
@@ -40,15 +41,15 @@ public class VienApiController {
     }
 
     @PostMapping("/count")
-    public Long countVien(@RequestBody Vien vien) {
-        return vienService.filterVienCount(vien);
+    public Number countVien(@RequestBody Vien vien) {
+        return new Number(vienService.filterVienCount(vien));
     }
 
     @PostMapping("/addVien")
     public void addVien(@RequestBody Vien vien) {
         if (vien != null) {
             Truong truong = truongService.findTruong();
-            if(truong == null) {
+            if (truong == null) {
                 System.out.println("null");
                 return;
             }
@@ -73,9 +74,9 @@ public class VienApiController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestParam Long id ,@RequestBody PhiThuVien phiThuVien) {
+    public void updatePhiThu(@RequestParam Long id, @RequestBody PhiThuVien phiThuVien) {
         Vien vien = vienService.findVienById(id);
-        if(vien != null) {
+        if (vien != null) {
             phiThuVien.setVien(vien);
             vienService.insertOrUpdate(phiThuVien);
         }

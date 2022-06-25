@@ -29,11 +29,11 @@ public class CDVPredicate {
         if (cdv.getEmail() != null) {
             booleanBuilder.and(qCongDoanVien.email.eq(cdv.getEmail()));
         }
-        if(cdv.getKhoa() != null) {
+        if (cdv.getKhoa() != null) {
             if (cdv.getKhoa().getTenKhoa() != null) {
                 booleanBuilder.and(qCongDoanVien.khoa.tenKhoa.eq(cdv.getKhoa().getTenKhoa()));
             }
-            if(cdv.getKhoa().getVien() != null) {
+            if (cdv.getKhoa().getVien() != null) {
                 if (cdv.getKhoa().getVien().getTenVien() != null) {
                     booleanBuilder.and(qCongDoanVien.khoa.vien.tenVien.eq(cdv.getKhoa().getVien().getTenVien()));
                 }

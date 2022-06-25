@@ -58,7 +58,7 @@ public class KhoaService {
     }
 
     public List<PhiThuKhoa> findPhiThu(Long i) {
-        if(iKhoaRepository.findById(i).orElse(null) == null) return null;
+        if (iKhoaRepository.findById(i).orElse(null) == null) return null;
         return iKhoaRepository.findById(i).orElse(null).getPhiThuKhoaList();
     }
 

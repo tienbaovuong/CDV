@@ -39,7 +39,7 @@ public class TruongController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestParam Long id ,@RequestBody PhiThuTruong phiThuTruong) {
+    public void updatePhiThu(@RequestParam Long id, @RequestBody PhiThuTruong phiThuTruong) {
         Truong truong = truongService.findTruong();
         phiThuTruong.setTruong(truong);
         truongService.insertOrUpdate(phiThuTruong);

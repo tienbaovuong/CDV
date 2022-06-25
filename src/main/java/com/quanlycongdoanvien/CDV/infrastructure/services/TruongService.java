@@ -25,7 +25,7 @@ public class TruongService {
     }
 
     public List<PhiThuTruong> findPhiThu(Long i) {
-        if(iTruongRepository.findById(i).orElse(null) == null) return null;
+        if (iTruongRepository.findById(i).orElse(null) == null) return null;
         return iTruongRepository.findById(i).orElse(null).getPhiThuTruongList();
     }
 
