@@ -34,8 +34,8 @@ public class TruongController {
     }
 
     @GetMapping("/phithu")
-    public List<PhiThuTruong> getPhiThu(@RequestParam Long id) {
-        return truongService.findPhiThu(id);
+    public List<PhiThuTruong> getPhiThu() {
+        return truongService.findPhiThu(1L);
     }
 
     @PutMapping("/phithu")
