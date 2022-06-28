@@ -12,11 +12,11 @@ public class KhoaPredicate {
         booleanBuilder.and(qKhoa.exist.eq(true));
 
         if (khoa.getTenKhoa() != null) {
-            booleanBuilder.and(qKhoa.tenKhoa.eq(khoa.getTenKhoa()));
+            booleanBuilder.and(qKhoa.tenKhoa.startsWithIgnoreCase(khoa.getTenKhoa()));
         }
         if (khoa.getVien() != null) {
             if (khoa.getVien().getTenVien() != null) {
-                booleanBuilder.and(qKhoa.vien.tenVien.eq(khoa.getVien().getTenVien()));
+                booleanBuilder.and(qKhoa.vien.tenVien.startsWithIgnoreCase(khoa.getVien().getTenVien()));
             }
         }
         return booleanBuilder.getValue();

@@ -1,5 +1,7 @@
 package com.quanlycongdoanvien.CDV.infrastructure.services;
 
+import com.quanlycongdoanvien.CDV.infrastructure.models.CongDoanVien;
+import com.quanlycongdoanvien.CDV.infrastructure.models.Khoa;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuVien;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Vien;
 import com.quanlycongdoanvien.CDV.infrastructure.predicate.VienPredicate;
@@ -33,6 +35,18 @@ public class VienService {
         vien.setTenVien(name);
         Predicate predicate = VienPredicate.createPredicate(vien);
         return iVienRepository.findOne(predicate).orElse(null);
+    }
+    public Long countCDVInVien(Long i){
+        Vien vien = iVienRepository.findById(i).orElse(null);
+        Long count = 0L;
+        if(vien != null){
+            for(Khoa khoa: vien.getDanhSachKhoa()){
+                for(CongDoanVien congDoanVien: khoa.getDanhSachCDV()){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     public List<Vien> filterVienByPage(int page, int size, Vien vien) {

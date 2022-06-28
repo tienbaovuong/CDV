@@ -34,6 +34,10 @@ public class VienApiController {
     public Vien getVien(@RequestParam Long id) {
         return vienService.findVienById(id);
     }
+    @GetMapping("/count")
+    public Number getCDVFromVien(@RequestParam Long id){
+        return new Number(vienService.countCDVInVien(id));
+    }
 
     @PostMapping("")
     public List<Vien> getListVien(@RequestParam int page, @RequestParam int size, @RequestBody Vien vien) {

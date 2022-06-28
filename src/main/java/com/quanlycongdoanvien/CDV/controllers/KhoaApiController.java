@@ -34,6 +34,11 @@ public class KhoaApiController {
         return khoaService.findKhoaById(id);
     }
 
+    @GetMapping("/count")
+    public Number countCDVInKhoa(@RequestParam Long id){
+        return new Number(khoaService.countCDVInKhoa(id));
+    }
+
     @PostMapping("")
     public List<Khoa> getListKhoa(@RequestParam int page, @RequestParam int size, @RequestBody Khoa khoa) {
         return khoaService.filterKhoaByPage(page, size, khoa);

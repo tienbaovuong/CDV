@@ -1,5 +1,6 @@
 package com.quanlycongdoanvien.CDV.infrastructure.services;
 
+import com.quanlycongdoanvien.CDV.infrastructure.models.CongDoanVien;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Khoa;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuKhoa;
 import com.quanlycongdoanvien.CDV.infrastructure.predicate.KhoaPredicate;
@@ -33,6 +34,17 @@ public class KhoaService {
         khoa.setTenKhoa(name);
         Predicate predicate = KhoaPredicate.createPredicate(khoa);
         return iKhoaRepository.findOne(predicate).orElse(null);
+    }
+
+    public Long countCDVInKhoa(Long i){
+        Khoa khoa = iKhoaRepository.findById(i).orElse(null);
+        Long count = 0L;
+        if(khoa != null){
+            for (CongDoanVien congDoanVien: khoa.getDanhSachCDV()){
+                count++;
+            }
+        }
+        return count;
     }
 
     public List<Khoa> filterKhoaByPage(int page, int size, Khoa khoa) {
