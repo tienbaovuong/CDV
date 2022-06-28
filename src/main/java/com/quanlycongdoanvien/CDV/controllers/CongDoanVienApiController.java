@@ -119,12 +119,12 @@ public class CongDoanVienApiController {
         if (taiKhoan != null) {
             if (taiKhoan.getPassword().equals(password)) {
                 if (type.equals("Truong")) {
-                    if (taiKhoan.isQuanLyTruong()) return new Number(1L);
+                    if (taiKhoan.isQuanLyTruong()) return new Number(taiKhoan.getCongDoanVien().getId());
                 } else if (type.equals("Vien")) {
                     if (taiKhoan.isQuanLyVien())
-                        return new Number(taiKhoan.getCongDoanVien().getKhoa().getVien().getId());
+                        return new Number(taiKhoan.getCongDoanVien().getId());
                 } else if (type.equals("Khoa")) {
-                    if (taiKhoan.isQuanLyKhoa()) return new Number(taiKhoan.getCongDoanVien().getKhoa().getId());
+                    if (taiKhoan.isQuanLyKhoa()) return new Number(taiKhoan.getCongDoanVien().getId());
                 } else {
                     return new Number(taiKhoan.getCongDoanVien().getId());
                 }
