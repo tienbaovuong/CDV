@@ -2,6 +2,7 @@ package com.quanlycongdoanvien.CDV.controllers;
 
 import com.quanlycongdoanvien.CDV.configurations.Webconfig;
 import com.quanlycongdoanvien.CDV.infrastructure.DTO.Number;
+import com.quanlycongdoanvien.CDV.infrastructure.DTO.VienDTO;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuVien;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Truong;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Vien;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = Webconfig.crossOrigin)
@@ -31,17 +34,19 @@ public class VienApiController {
     TruongService truongService;
 
     @GetMapping("")
-    public Vien getVien(@RequestParam Long id) {
-        return vienService.findVienById(id);
-    }
-    @GetMapping("/count")
-    public Number getCDVFromVien(@RequestParam Long id){
-        return new Number(vienService.countCDVInVien(id));
+    public VienDTO getVien(@RequestParam Long id) {
+        return new VienDTO(vienService.findVienById(id), vienService.countCDVInVien(id));
     }
 
     @PostMapping("")
-    public List<Vien> getListVien(@RequestParam int page, @RequestParam int size, @RequestBody Vien vien) {
-        return vienService.filterVienByPage(page, size, vien);
+    public List<VienDTO> getListVien(@RequestParam int page, @RequestParam int size, @RequestBody Vien vien) {
+        List<Vien> viens = vienService.filterVienByPage(page, size, vien);
+        List<VienDTO> vienDTOS = new ArrayList<>();
+        for (Vien vien1 : viens) {
+            VienDTO vienDTO = new VienDTO(vien1, vienService.countCDVInVien(vien1.getId()));
+            vienDTOS.add(vienDTO);
+        }
+        return vienDTOS;
     }
 
     @PostMapping("/count")

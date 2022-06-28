@@ -36,12 +36,13 @@ public class VienService {
         Predicate predicate = VienPredicate.createPredicate(vien);
         return iVienRepository.findOne(predicate).orElse(null);
     }
-    public Long countCDVInVien(Long i){
+
+    public Long countCDVInVien(Long i) {
         Vien vien = iVienRepository.findById(i).orElse(null);
         Long count = 0L;
-        if(vien != null){
-            for(Khoa khoa: vien.getDanhSachKhoa()){
-                for(CongDoanVien congDoanVien: khoa.getDanhSachCDV()){
+        if (vien != null) {
+            for (Khoa khoa : vien.getDanhSachKhoa()) {
+                for (CongDoanVien congDoanVien : khoa.getDanhSachCDV()) {
                     count++;
                 }
             }

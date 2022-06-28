@@ -36,11 +36,11 @@ public class KhoaService {
         return iKhoaRepository.findOne(predicate).orElse(null);
     }
 
-    public Long countCDVInKhoa(Long i){
+    public Long countCDVInKhoa(Long i) {
         Khoa khoa = iKhoaRepository.findById(i).orElse(null);
         Long count = 0L;
-        if(khoa != null){
-            for (CongDoanVien congDoanVien: khoa.getDanhSachCDV()){
+        if (khoa != null) {
+            for (CongDoanVien congDoanVien : khoa.getDanhSachCDV()) {
                 count++;
             }
         }
