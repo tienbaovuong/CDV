@@ -4,6 +4,7 @@ import com.quanlycongdoanvien.CDV.infrastructure.models.CongDoanVien;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Khoa;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuVien;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Vien;
+import com.quanlycongdoanvien.CDV.infrastructure.predicate.PhiThuVienPredicate;
 import com.quanlycongdoanvien.CDV.infrastructure.predicate.VienPredicate;
 import com.quanlycongdoanvien.CDV.infrastructure.repositories.IPhiThuVienRepository;
 import com.quanlycongdoanvien.CDV.infrastructure.repositories.IVienRepository;
@@ -75,6 +76,16 @@ public class VienService {
     public List<PhiThuVien> findPhiThu(Long i) {
         if (iVienRepository.findById(i).orElse(null) == null) return null;
         return iVienRepository.findById(i).orElse(null).getPhiThuVienList();
+    }
+
+    public List<PhiThuVien> findPhiThuByMonth(Long i, String year, String month) {
+        Predicate predicate = PhiThuVienPredicate.createPredicate(i, year, month);
+        return (List<PhiThuVien>) iPhiThuVienRepository.findAll(predicate);
+    }
+
+    public List<PhiThuVien> findPhiThuByTruong(String year, String month) {
+        Predicate predicate = PhiThuVienPredicate.createPredicateMonth(year, month);
+        return (List<PhiThuVien>) iPhiThuVienRepository.findAll(predicate);
     }
 
     public PhiThuVien insertOrUpdate(PhiThuVien phiThuVien) {

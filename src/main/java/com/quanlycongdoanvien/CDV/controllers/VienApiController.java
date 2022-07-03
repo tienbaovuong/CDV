@@ -2,6 +2,7 @@ package com.quanlycongdoanvien.CDV.controllers;
 
 import com.quanlycongdoanvien.CDV.configurations.Webconfig;
 import com.quanlycongdoanvien.CDV.infrastructure.DTO.Number;
+import com.quanlycongdoanvien.CDV.infrastructure.DTO.PhiThuVienDTO;
 import com.quanlycongdoanvien.CDV.infrastructure.DTO.VienDTO;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuVien;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Truong;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = Webconfig.crossOrigin)
@@ -77,9 +77,21 @@ public class VienApiController {
         vienService.delete(id);
     }
 
-    @GetMapping("/phithu")
-    public List<PhiThuVien> getPhiThu(@RequestParam Long id) {
-        return vienService.findPhiThu(id);
+    @GetMapping("/phithu/month")
+    public List<PhiThuVien> getPhiThu(@RequestParam Long idVien, String year, String month) {
+        return vienService.findPhiThuByMonth(idVien, year, month);
+    }
+
+    @GetMapping("/phithu/truong")
+    public List<PhiThuVienDTO> getPhiThuVien(@RequestParam String year, String month) {
+        List<PhiThuVien> phiThuViens = vienService.findPhiThuByTruong(year, month);
+        List<PhiThuVienDTO> phiThuVienDTOS = new ArrayList<>();
+        for (PhiThuVien phiThuVien : phiThuViens) {
+            PhiThuVienDTO phiThuVienDTO = new PhiThuVienDTO(phiThuVien);
+            phiThuVienDTO.soCDV = vienService.countCDVInVien(phiThuVien.getVien().getId());
+            phiThuVienDTOS.add(phiThuVienDTO);
+        }
+        return phiThuVienDTOS;
     }
 
     @PutMapping("/phithu")

@@ -2,6 +2,7 @@ package com.quanlycongdoanvien.CDV.infrastructure.repositories;
 
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuVien;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-public interface IPhiThuVienRepository extends JpaRepository<PhiThuVien, Long> {
+public interface IPhiThuVienRepository extends JpaRepository<PhiThuVien, Long>, QuerydslPredicateExecutor<PhiThuVien> {
 }

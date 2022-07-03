@@ -4,6 +4,7 @@ import com.quanlycongdoanvien.CDV.infrastructure.models.CongDoanVien;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Khoa;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuKhoa;
 import com.quanlycongdoanvien.CDV.infrastructure.predicate.KhoaPredicate;
+import com.quanlycongdoanvien.CDV.infrastructure.predicate.PhiThuKhoaPredicate;
 import com.quanlycongdoanvien.CDV.infrastructure.repositories.IKhoaRepository;
 import com.quanlycongdoanvien.CDV.infrastructure.repositories.IPhiThuKhoaRepository;
 import com.querydsl.core.types.Predicate;
@@ -72,6 +73,16 @@ public class KhoaService {
     public List<PhiThuKhoa> findPhiThu(Long i) {
         if (iKhoaRepository.findById(i).orElse(null) == null) return null;
         return iKhoaRepository.findById(i).orElse(null).getPhiThuKhoaList();
+    }
+
+    public List<PhiThuKhoa> findPhiThuByMonth(Long i, String year, String month) {
+        Predicate predicate = PhiThuKhoaPredicate.createPredicate(i, year, month);
+        return (List<PhiThuKhoa>) iPhiThuKhoaRepository.findAll(predicate);
+    }
+
+    public List<PhiThuKhoa> findPhiThuByVien(Long i, String year, String month) {
+        Predicate predicate = PhiThuKhoaPredicate.createPredicateMonth(i, year, month);
+        return (List<PhiThuKhoa>) iPhiThuKhoaRepository.findAll(predicate);
     }
 
     public PhiThuKhoa insertOrUpdate(PhiThuKhoa phiThuKhoa) {

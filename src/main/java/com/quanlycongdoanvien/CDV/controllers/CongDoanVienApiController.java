@@ -2,6 +2,7 @@ package com.quanlycongdoanvien.CDV.controllers;
 
 import com.quanlycongdoanvien.CDV.configurations.Webconfig;
 import com.quanlycongdoanvien.CDV.infrastructure.DTO.Number;
+import com.quanlycongdoanvien.CDV.infrastructure.DTO.PhiThuCDVDTO;
 import com.quanlycongdoanvien.CDV.infrastructure.DTO.Text;
 import com.quanlycongdoanvien.CDV.infrastructure.models.BacLuong;
 import com.quanlycongdoanvien.CDV.infrastructure.models.ChucVu;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = Webconfig.crossOrigin)
@@ -154,9 +156,20 @@ public class CongDoanVienApiController {
         }
     }
 
-    @GetMapping("/phithu")
-    public List<PhiThuCDV> getPhiThu(@RequestParam Long id) {
-        return congDoanVienService.findPhiThu(id);
+    @GetMapping("/phithu/year")
+    public List<PhiThuCDV> getPhiThu(@RequestParam Long idCDV, String year) {
+        return congDoanVienService.findPhiThuByYear(idCDV, year);
+    }
+
+    @GetMapping("/phithu/month")
+    public List<PhiThuCDVDTO> getPhiThu(@RequestParam Long idKhoa, String year, String month) {
+        List<PhiThuCDV> phiThuCDVList = congDoanVienService.findPhiThuByMonth(idKhoa, year, month);
+        List<PhiThuCDVDTO> phiThuCDVDTOS = new ArrayList<>();
+        for (PhiThuCDV phiThuCDV : phiThuCDVList) {
+            PhiThuCDVDTO phiThuCDVDTO = new PhiThuCDVDTO(phiThuCDV);
+            phiThuCDVDTOS.add(phiThuCDVDTO);
+        }
+        return phiThuCDVDTOS;
     }
 
     @PutMapping("/phithu")

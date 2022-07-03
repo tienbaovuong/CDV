@@ -38,6 +38,11 @@ public class TruongController {
         return truongService.findPhiThu(1L);
     }
 
+    @GetMapping("/phithu/month")
+    public List<PhiThuTruong> getPhiThu(@RequestParam String year, String month) {
+        return truongService.findPhiThuByMonth(year, month);
+    }
+
     @PutMapping("/phithu")
     public void updatePhiThu(@RequestParam Long id, @RequestBody PhiThuTruong phiThuTruong) {
         Truong truong = truongService.findTruong();

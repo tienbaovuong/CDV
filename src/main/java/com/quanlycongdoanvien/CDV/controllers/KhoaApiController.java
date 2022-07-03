@@ -3,6 +3,7 @@ package com.quanlycongdoanvien.CDV.controllers;
 import com.quanlycongdoanvien.CDV.configurations.Webconfig;
 import com.quanlycongdoanvien.CDV.infrastructure.DTO.KhoaDTO;
 import com.quanlycongdoanvien.CDV.infrastructure.DTO.Number;
+import com.quanlycongdoanvien.CDV.infrastructure.DTO.PhiThuKhoaDTO;
 import com.quanlycongdoanvien.CDV.infrastructure.models.Khoa;
 import com.quanlycongdoanvien.CDV.infrastructure.models.PhiThuKhoa;
 import com.quanlycongdoanvien.CDV.infrastructure.services.KhoaService;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = Webconfig.crossOrigin)
@@ -78,9 +78,21 @@ public class KhoaApiController {
         khoaService.delete(id);
     }
 
-    @GetMapping("/phithu")
-    public List<PhiThuKhoa> getPhiThu(@RequestParam Long id) {
-        return khoaService.findPhiThu(id);
+    @GetMapping("/phithu/month")
+    public List<PhiThuKhoa> getPhiThu(@RequestParam Long idKhoa, String year, String month) {
+        return khoaService.findPhiThuByMonth(idKhoa, year, month);
+    }
+
+    @GetMapping("/phithu/vien")
+    public List<PhiThuKhoaDTO> getPhiThuKhoa(@RequestParam Long idVien, String year, String month) {
+        List<PhiThuKhoa> phiThuKhoas = khoaService.findPhiThuByVien(idVien, year, month);
+        List<PhiThuKhoaDTO> phiThuKhoaDTOS = new ArrayList<>();
+        for (PhiThuKhoa phiThuKhoa : phiThuKhoas) {
+            PhiThuKhoaDTO phiThuKhoaDTO = new PhiThuKhoaDTO(phiThuKhoa);
+            phiThuKhoaDTO.soCDV = khoaService.countCDVInKhoa(phiThuKhoa.getKhoa().getId());
+            phiThuKhoaDTOS.add(phiThuKhoaDTO);
+        }
+        return phiThuKhoaDTOS;
     }
 
     @PutMapping("/phithu")
