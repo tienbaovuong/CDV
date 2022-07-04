@@ -91,7 +91,7 @@ public class CongDoanVienApiController {
     }
 
     @PutMapping("/updateCDV")
-    public void updateCongDoanVien(@RequestBody CongDoanVien congDoanVien) {
+    public Number updateCongDoanVien(@RequestBody CongDoanVien congDoanVien) {
         for (BacLuong bacLuong : congDoanVien.getBacLuongList()) {
             bacLuong.setCongDoanVien(congDoanVien);
         }
@@ -108,11 +108,13 @@ public class CongDoanVienApiController {
             thamNien.setCongDoanVien(congDoanVien);
         }
         congDoanVienService.insertOrUpdate(congDoanVien);
+        return new Number(1L);
     }
 
     @DeleteMapping("/deleteCDV")
-    public void deleteCongDoanVien(@RequestParam Long id) {
+    public Number deleteCongDoanVien(@RequestParam Long id) {
         congDoanVienService.delete(id);
+        return new Number(1L);
     }
 
     @PostMapping("/login")
@@ -148,12 +150,13 @@ public class CongDoanVienApiController {
     }
 
     @PutMapping("/updateTaiKhoan")
-    public void updateTaiKhoan(@RequestParam Long id, @RequestBody TaiKhoan taiKhoan) {
+    public Number updateTaiKhoan(@RequestParam Long id, @RequestBody TaiKhoan taiKhoan) {
         CongDoanVien cdv = congDoanVienService.findCDVById(id);
         if (cdv != null) {
             taiKhoan.setCongDoanVien(cdv);
             congDoanVienService.update(taiKhoan);
         }
+        return new Number(1L);
     }
 
     @GetMapping("/phithu/year")
@@ -173,11 +176,12 @@ public class CongDoanVienApiController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestParam Long id, @RequestBody PhiThuCDV phiThuCDV) {
+    public Number updatePhiThu(@RequestParam Long id, @RequestBody PhiThuCDV phiThuCDV) {
         CongDoanVien cdv = congDoanVienService.findCDVById(id);
         if (cdv != null) {
             phiThuCDV.setCongDoanVien(cdv);
             congDoanVienService.insertOrUpdate(phiThuCDV);
         }
+        return new Number(1L);
     }
 }

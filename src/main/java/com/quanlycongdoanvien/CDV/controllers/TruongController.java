@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.quanlycongdoanvien.CDV.infrastructure.DTO.Number;
 import java.util.List;
 
 @CrossOrigin(origins = Webconfig.crossOrigin)
@@ -29,8 +29,9 @@ public class TruongController {
     }
 
     @PutMapping("")
-    public void updateTruong(@RequestBody Truong truong) {
+    public Number updateTruong(@RequestBody Truong truong) {
         truongService.insertOrUpdate(truong);
+        return new Number(1L);
     }
 
     @GetMapping("/phithu")
@@ -44,9 +45,10 @@ public class TruongController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestParam Long id, @RequestBody PhiThuTruong phiThuTruong) {
+    public Number updatePhiThu(@RequestParam Long id, @RequestBody PhiThuTruong phiThuTruong) {
         Truong truong = truongService.findTruong();
         phiThuTruong.setTruong(truong);
         truongService.insertOrUpdate(phiThuTruong);
+        return new Number(1L);
     }
 }

@@ -59,23 +59,26 @@ public class KhoaApiController {
     }
 
     @PostMapping("/addKhoa")
-    public void addKhoa(@RequestParam Long idVien, @RequestBody Khoa khoa) {
+    public Number addKhoa(@RequestParam Long idVien, @RequestBody Khoa khoa) {
         if (khoa != null) {
             if (vienService.findVienById(idVien) != null) {
                 khoa.setVien(vienService.findVienById(idVien));
                 khoaService.insertOrUpdate(khoa);
             }
         }
+        return new Number(1L);
     }
 
     @PutMapping("/updateKhoa")
-    public void updateKhoa(@RequestBody Khoa khoa) {
+    public Number updateKhoa(@RequestBody Khoa khoa) {
         khoaService.insertOrUpdate(khoa);
+        return new Number(1L);
     }
 
     @DeleteMapping("/deleteKhoa")
-    public void deleteKhoa(@RequestParam Long id) {
+    public Number deleteKhoa(@RequestParam Long id) {
         khoaService.delete(id);
+        return new Number(1L);
     }
 
     @GetMapping("/phithu/month")
@@ -96,11 +99,12 @@ public class KhoaApiController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestParam Long id, @RequestBody PhiThuKhoa phiThuKhoa) {
+    public Number updatePhiThu(@RequestParam Long id, @RequestBody PhiThuKhoa phiThuKhoa) {
         Khoa khoa = khoaService.findKhoaById(id);
         if (khoa != null) {
             phiThuKhoa.setKhoa(khoa);
             khoaService.insertOrUpdate(phiThuKhoa);
         }
+        return new Number(1L);
     }
 }

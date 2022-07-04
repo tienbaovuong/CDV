@@ -55,26 +55,29 @@ public class VienApiController {
     }
 
     @PostMapping("/addVien")
-    public void addVien(@RequestBody Vien vien) {
+    public Number addVien(@RequestBody Vien vien) {
         if (vien != null) {
             Truong truong = truongService.findTruong();
             if (truong == null) {
                 System.out.println("null");
-                return;
+                return new Number(1L);
             }
             vien.setTruong(truong);
             vienService.insertOrUpdate(vien);
         }
+        return new Number(1L);
     }
 
     @PutMapping("/updateVien")
-    public void updateVien(@RequestBody Vien vien) {
+    public Number updateVien(@RequestBody Vien vien) {
         vienService.insertOrUpdate(vien);
+        return new Number(1L);
     }
 
     @DeleteMapping("/deleteVien")
-    public void deleteVien(@RequestParam Long id) {
+    public Number deleteVien(@RequestParam Long id) {
         vienService.delete(id);
+        return new Number(1L);
     }
 
     @GetMapping("/phithu/month")
@@ -95,11 +98,12 @@ public class VienApiController {
     }
 
     @PutMapping("/phithu")
-    public void updatePhiThu(@RequestParam Long id, @RequestBody PhiThuVien phiThuVien) {
+    public Number updatePhiThu(@RequestParam Long id, @RequestBody PhiThuVien phiThuVien) {
         Vien vien = vienService.findVienById(id);
         if (vien != null) {
             phiThuVien.setVien(vien);
             vienService.insertOrUpdate(phiThuVien);
         }
+        return new Number(1L);
     }
 }
