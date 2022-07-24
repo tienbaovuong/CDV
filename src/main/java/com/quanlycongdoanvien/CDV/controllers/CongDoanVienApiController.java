@@ -89,6 +89,11 @@ public class CongDoanVienApiController {
 
     @PutMapping("/updateCDV")
     public Number updateCongDoanVien(@RequestBody CongDoanVien congDoanVien) {
+        if (!congDoanVienService.findCDVById(congDoanVien.getId()).getEmail().equals(congDoanVien.getEmail())){
+            if (congDoanVienService.findTaiKhoan(congDoanVien.getEmail()) != null) {
+                return new Number(0L);
+            }
+        }
         for (BacLuong bacLuong : congDoanVien.getBacLuongList()) {
             bacLuong.setCongDoanVien(congDoanVien);
         }
