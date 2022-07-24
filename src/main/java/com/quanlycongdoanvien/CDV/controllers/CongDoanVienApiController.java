@@ -80,9 +80,6 @@ public class CongDoanVienApiController {
                 for (HocVi hocVi : congDoanVien.getHocViList()) {
                     hocVi.setCongDoanVien(congDoanVien);
                 }
-                for (ThamNien thamNien : congDoanVien.getThamNienList()) {
-                    thamNien.setCongDoanVien(congDoanVien);
-                }
                 congDoanVienService.insertOrUpdate((congDoanVien));
                 return new Text("Success");
             }
@@ -103,9 +100,6 @@ public class CongDoanVienApiController {
         }
         for (HocVi hocVi : congDoanVien.getHocViList()) {
             hocVi.setCongDoanVien(congDoanVien);
-        }
-        for (ThamNien thamNien : congDoanVien.getThamNienList()) {
-            thamNien.setCongDoanVien(congDoanVien);
         }
         congDoanVienService.insertOrUpdate(congDoanVien);
         return new Number(1L);
