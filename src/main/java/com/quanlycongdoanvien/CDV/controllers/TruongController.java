@@ -7,6 +7,7 @@ import com.quanlycongdoanvien.CDV.infrastructure.services.TruongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,5 +51,9 @@ public class TruongController {
         phiThuTruong.setTruong(truong);
         truongService.insertOrUpdate(phiThuTruong);
         return new Number(1L);
+    }
+    @GetMapping("/phithu/monthlyupdate")
+    public void monthlyPhiThu(){
+        truongService.createPhiThu();
     }
 }
