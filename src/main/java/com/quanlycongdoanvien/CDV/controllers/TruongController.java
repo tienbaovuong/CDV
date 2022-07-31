@@ -56,4 +56,8 @@ public class TruongController {
     public void monthlyPhiThu(){
         truongService.createPhiThu();
     }
+    @PutMapping("/phithu/monthlyupdate")
+    public void monthlyChoosePhiThu(@RequestParam int month){
+        truongService.createPhiThuForChosenMonth(month);
+    }
 }

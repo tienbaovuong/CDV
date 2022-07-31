@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +60,63 @@ public class TruongService {
 
     public void createPhiThu(){
         Date date = new Date();
+        Truong truong = findTruong();
+        PhiThuTruong phiThuTruong = new PhiThuTruong();
+        phiThuTruong.setThoiDiem(date);
+        phiThuTruong.setDaNop(false);
+        phiThuTruong.setTruong(truong);
+        Long tongPhiThuTruong = 0L;
+
+        for(Vien vien: truong.getDanhSachVien()){
+            PhiThuVien phiThuVien = new PhiThuVien();
+            phiThuVien.setVien(vien);
+            phiThuVien.setThoiDiem(date);
+            phiThuVien.setDaNop(false);
+            Long tongPhiThuVien = 0L;
+
+            for(Khoa khoa: vien.getDanhSachKhoa()){
+                PhiThuKhoa phiThuKhoa = new PhiThuKhoa();
+                phiThuKhoa.setKhoa(khoa);
+                phiThuKhoa.setThoiDiem(date);
+                phiThuKhoa.setDaNop(false);
+                Long tongPhiThuKhoa = 0L;
+
+                for(CongDoanVien congDoanVien: khoa.getDanhSachCDV()){
+                    PhiThuCDV phiThuCDV = new PhiThuCDV();
+                    phiThuCDV.setCongDoanVien(congDoanVien);
+                    phiThuCDV.setThoiDiem(date);
+                    phiThuCDV.setDaNop(false);
+                    phiThuCDV.setBacLuong(congDoanVien.getBacLuongList().get(congDoanVien.getBacLuongList().size()-1).getBacLuong());
+                    phiThuCDV.setHeSoChucVu(congDoanVien.getChucVuList().get(congDoanVien.getChucVuList().size()-1).getHeSoChucVu());
+                    phiThuCDV.setLuongNop((long) (1490000L *(phiThuCDV.getBacLuong()+ phiThuCDV.getHeSoChucVu())/100));
+                    iPhiThuCDVRepository.save(phiThuCDV);
+                    tongPhiThuKhoa += phiThuCDV.getLuongNop();
+                }
+
+                phiThuKhoa.setTongThu(tongPhiThuKhoa);
+                phiThuKhoa.setGiuLai(tongPhiThuKhoa*7/20);
+                Long tmp = phiThuKhoa.getTongThu() - phiThuKhoa.getGiuLai();
+                tongPhiThuVien += tmp;
+                phiThuKhoa.setNopVien(tmp/13*3);
+                phiThuKhoa.setNopTruong(tmp-phiThuKhoa.getNopVien());
+                iPhiThuKhoaRepository.save(phiThuKhoa);
+            }
+
+            phiThuVien.setTongThu(tongPhiThuVien);
+            phiThuVien.setGiuLai(tongPhiThuVien/13*3);
+            phiThuVien.setNopTruong(tongPhiThuVien - phiThuVien.getGiuLai());
+            iPhiThuVienRepository.save(phiThuVien);
+            tongPhiThuTruong += phiThuVien.getNopTruong();
+        }
+
+        phiThuTruong.setTongThu(tongPhiThuTruong);
+        iPhiThuTruongRepository.save(phiThuTruong);
+    }
+    public void createPhiThuForChosenMonth(int month){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DATE, 1);
+        calendar.set(Calendar.MONTH, month-1);
+        Date date = calendar.getTime();
         Truong truong = findTruong();
         PhiThuTruong phiThuTruong = new PhiThuTruong();
         phiThuTruong.setThoiDiem(date);
